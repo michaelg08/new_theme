@@ -603,7 +603,7 @@ $product-h1-margin-bottom-desktop                   : $indent__base !default;
 
             .product-item-details {
                 margin-left: 85px;
-				}
+            }
         }
     }
 }
@@ -641,18 +641,9 @@ $product-h1-margin-bottom-desktop                   : $indent__base !default;
         .product.media {
             width: 50%;
         }
-		
-		.product-item {
-			.price-box {
-				.price, .price-label {
-					font-family: "Helvetica Neue", Verdana, Arial, sans-serif;
-					color: $nav-color;
-					font-size: 16px;
-					font-weight: normal;
-				}
-			}	
-		}
-	}
+    }
+}
+
 //
 //  Compare Products Page
 //  ---------------------------------------------
