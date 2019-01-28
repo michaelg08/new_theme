@@ -112,20 +112,31 @@ $catalog-event-color            : $primary__color !default;
                 text-transform: none;
             }
         }
-
-        .dates {
+		.dates {
             .date {
                 @include lib-font-size(50);
             }
+		}
+	}	
+		
 
-            .start {
-                padding-right: 50px;
+	@media all and (min-width: 768px) {
+		.page-layout-1column {
+			.product {
+				&.media {
+					width: 100%;
+					min-width: 350px;
+					max-width: 920px;
+					max-height: 500px;
+				}
+			}
+		}
 
-                &:after {
-                    @include lib-font-size(50);
-                    right: 10px;
-                }
+        .start {
+            padding-right: 50px;
+			&:after {
+                @include lib-font-size(50);
+                right: 10px;
             }
         }
     }
-}
