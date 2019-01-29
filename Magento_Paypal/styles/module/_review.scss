@@ -12,13 +12,14 @@
     }
 
     .paypa-review-title {
-        > strong {
+        & > strong {
             @include lib-heading(h3);
             display: inline-block;
         }
     }
 
     .items-qty {
+
         @extend .abs-reset-list;
 
         .item {
@@ -33,7 +34,7 @@
     }
 
     .paypal-review-title {
-        > strong {
+        & > strong {
             @include lib-heading(h3);
             display: inline-block;
         }
@@ -63,6 +64,7 @@
     margin: $indent__base 0;
 
     .block {
+
         @extend .abs-discount-block;
         margin-bottom: 0;
 
@@ -83,6 +85,7 @@
         }
 
         .block-content {
+
             @extend .abs-add-clearfix-desktop;
             .box-order-shipping-address,
             .box-order-shipping-method,
@@ -100,6 +103,7 @@
 
         .column.main & {
             .actions-toolbar {
+
                 @extend .abs-reset-left-margin-desktop;
             }
         }

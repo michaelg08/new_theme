@@ -1,17 +1,10 @@
 .actions-toolbar {
     > .primary,
     > .secondary {
-        text-align: center;
+        text-align: left;
         .action {
             @extend .abs-button-responsive;
             margin-bottom: $indent__s;
-            &:last-child {
-                margin-bottom: 0;
-            }
-        }
-        margin-bottom: $indent__s;
-        &:last-child {
-            margin-bottom: 0;
         }
     }
 }
@@ -23,7 +16,6 @@
         @include lib-actions-toolbar();
         > .secondary,
         > .primary {
-            margin-bottom: 0;
             .action {
                 margin-bottom: 0;
                 width: auto;

@@ -6,21 +6,21 @@
                 <width>140</width>
                 <height>140</height>
             </image>
-            <image id="cart_cross_sell_products" type="small_image">
-                <width>240</width>
-                <height>300</height>
+            <image id="cart_cross_sell_products" type="thumbnail">
+                <width>152</width>
+                <height>188</height>
             </image>
             <image id="cart_page_product_thumbnail" type="small_image">
                 <width>110</width>
                 <height>160</height>
             </image>
             <image id="category_page_grid" type="small_image">
-                <width>240</width>
-                <height>300</height>
+                <width>400</width>
+                <height>400</height>
             </image>
             <image id="category_page_list" type="small_image">
-                <width>240</width>
-                <height>300</height>
+                <width>400</width>
+                <height>400</height>
             </image>
             <image id="customer_account_my_tags_tag_view" type="small_image">
                 <width>100</width>
@@ -67,17 +67,9 @@
                 <height>140</height>
             </image>
             <image id="product_page_image_large" type="image"/>
-            <image id="product_page_image_large_no_frame" type="image">
-                <frame>false</frame>
-            </image>
             <image id="product_page_image_medium" type="image">
                 <width>700</width>
                 <height>700</height>
-            </image>
-            <image id="product_page_image_medium_no_frame" type="image">
-                <width>700</width>
-                <height>700</height>
-                <frame>false</frame>
             </image>
             <image id="product_page_image_small" type="thumbnail">
                 <width>90</width>
@@ -179,6 +171,22 @@
                 <width>240</width>
                 <height>300</height>
             </image>
+			<image id="swatch_image" type="swatch_image">
+                <width>30</width>
+                <height>20</height>
+            </image>
+            <image id="swatch_thumb" type="swatch_thumb">
+                <width>110</width>
+                <height>90</height>
+            </image>
+            <image id="swatch_image_base" type="swatch_image">
+                <width>30</width>
+                <height>20</height>
+            </image>
+            <image id="swatch_thumb_base" type="swatch_thumb">
+                <width>110</width>
+                <height>90</height>
+            </image>
         </images>
     </media>
     <vars module="Magento_Catalog">
@@ -201,23 +209,23 @@
             <var name="fullscreen">
                 <var name="nav">thumbs</var> <!-- Fullscreen navigation style (false/thumbs/dots) -->
                 <var name="loop">true</var> <!-- Fullscreen navigation loop (true/false/null) -->
-                <var name="arrows">false</var> <!-- Turn on/off arrows on the sides preview in fullscreen (true/false/null) -->
+                <var name="arrows">true</var> <!-- Turn on/off arrows on the sides preview in fullscreen (true/false/null) -->
                 <var name="caption">false</var> <!-- Display alt text as image title in fullscreen(true/false) -->
                 <var name="navdir">horizontal</var> <!--Sliding direction of thumbnails in fullscreen(horizontal/vertical)  -->
-                <var name="navtype">slides</var> <!-- Sliding type of thumbnails (slides/thumbs) -->
+                <var name="navtype">thumbs</var> <!-- Sliding type of thumbnails (slides/thumbs) -->
                 <var name="transition">
                     <var name="effect">dissolve</var> <!-- Sets transition effect for slides changing (slide/crossfade/dissolve) -->
                     <var name="duration">500</var> <!-- Sets transition duration in ms -->
                 </var>
             </var>
         </var>
-
+		
         <var name="magnifier">
             <var name="fullscreenzoom">20</var>  <!-- Zoom for fullscreen (integer)-->
             <var name="top"></var> <!-- Top position of magnifier -->
             <var name="left"></var> <!-- Left position of magnifier -->
-            <var name="width"></var> <!-- Width of magnifier block -->
-            <var name="height"></var> <!-- Height of magnifier block -->
+            <var name="width">450</var> <!-- Width of magnifier block -->
+            <var name="height">450</var> <!-- Height of magnifier block -->
             <var name="eventType">hover</var> <!-- Action that atcivates zoom (hover/click) -->
             <var name="enabled">false</var> <!-- Turn on/off magnifier (true/false) -->
         </var>
@@ -229,7 +237,7 @@
                 </var>
                 <var name="options">
                     <var name="options">
-                        <var name="nav">dots</var>
+                        <var name="navigation">dots</var>
                     </var>
                 </var>
             </var>
