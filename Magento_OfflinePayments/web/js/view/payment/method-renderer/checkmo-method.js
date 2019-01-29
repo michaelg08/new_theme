@@ -10,7 +10,8 @@ define(
     ],
     function (Component) {
         'use strict';
-        
+		
+
         return Component.extend({
             defaults: {
                 template: 'Magento_OfflinePayments/payment/checkmo'
@@ -26,6 +27,6 @@ define(
                 return window.checkoutConfig.payment.checkmo.payableTo;
             }
         });
-        
+
     }
 );
