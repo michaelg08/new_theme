@@ -1,256 +1,395 @@
-@import 'variables';
-@import 'module/common';
+//
+//  Theme variables
+//  _____________________________________________
+
+//  Messages
+$message-global-note__background           : $color-yellow-light2 !default;
+$message-global-note__border-color         : $color-yellow-light3 !default;
+$message-global-note__color                : $text__color !default;
+
+$message-global-note-link__color           : $link__color !default;
+$message-global-note-link__color-hover     : $link__hover__color !default;
+$message-global-note-link__color-active    : $link__active__color !default;
+
+$message-global-caution__background        : $color-red9 !default;
+$message-global-caution__border-color      : none !default;
+$message-global-caution__color             : $color-white !default;
+
+$message-global-caution-link__color        : $link__color !default;
+$message-global-caution-link__color-hover  : $link__hover__color !default;
+$message-global-caution-link__color-active : $link__active__color !default;
+
+//  Header
+$header__background-color                  : false !default;
+$header-icons-color                        : $color-gray56 !default;
+$header-icons-color-hover                  : $color-gray20 !default;
+
+$addto-color                               : $text__color__muted !default;
+$addto-hover-color                         : $primary__color !default;
+
+$minicart-icons-color                      : $header-icons-color !default;
+$minicart-icons-color-hover                : $header-icons-color-hover !default;
+
+$button__shadow                            : inset 0 2px 1px rgba(0, 0, 0, 0.12) !default;
+
+$h1__margin-bottom__desktop                : $indent__xl !default;
+
+//  Footer
+$footer__background-color                  : false !default;
 
 
+body {
+    @include lib-css(background-color, $page__background-color);
+}
 
-/*----header----*/
+//
+//  Header
+//  ---------------------------------------------
 
 .page-header {
-  background-color: $nav-color;
-  padding: 15px 0;
-  .panel {
-    padding: 0;
-    &.wrapper {
-      border: none;
-	  @media all and (max-width: 770px) {
-		 height: 35px;
-	  }
-    }
-  }
-  .header {
-    &.panel, &.content {
-      max-width: none;
-      padding: 0;
-	  @media all and (max-width: 770px) {
-		 height: 50px;
-	  }
-    }
-  }
+    @include lib-css(background-color, $header__background-color);
+    border-bottom: 1px solid $border-color__base;
+    margin-bottom: $indent__base;
 }
 
 .header {
-  &.panel {
-    > .header {
-      &.links {
-        > li {
-          margin-right: 25px;
-          padding-top: 15px;
-          a {
-            text-transform: uppercase;
-            text-decoration: none;
-            color: $mobile-nav-color;
-            font: normal 10px "Helvetica Neue", Verdana, Arial, sans-serif;
-            width: 100%;
-          }
-        }
-      }
+    &.content {
+        @extend .abs-add-clearfix;
+        padding-top: $indent__s;
+        position: relative;
     }
-  }
-  &.content {
-    text-align: center;
-    .block {
-      &.block-search {
-        display: none;
-      }
-    }
-    .minicart-wrapper {
-      display: none;
-    }
-  }
-}
-
-.shoelink {
-  cursor: pointer;
 }
 
 .logo {
-  float: none;
-  margin: 0;
-  display: inline-block;
-  position: relative;
-  top: 12px;
-  left: -50px;
+    float: left;
+    margin: 0 0 $indent__s $indent__xl;
+    max-width: 50%;
+    position: relative;
+    z-index: 5;
+
+    img {
+        display: block;
+    }
+
+    .page-print & {
+        float: none;
+    }
 }
 
+.page-main {
+    > .page-title-wrapper {
+        .page-title + .action {
+            margin-top: $indent__l;
+        }
+    }
+}
 
-/*---footer---*/
+.action.skip {
+    &:not(:focus) {
+        @extend .abs-visually-hidden;
+    }
+
+    &:focus {
+        @include lib-css(background, $color-gray94);
+        @include lib-css(padding, $indent__s);
+        box-sizing: border-box;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        top: 0;
+        width: 100%;
+        z-index: 15;
+    }
+}
+
+.action-skip-wrapper {
+    height: 0;
+    position: relative;
+}
+
+//
+//  Global notice
+//  ---------------------------------------------
+
+.message.global {
+    p {
+        margin: 0;
+    }
+
+    &.noscript,
+    &.cookie {
+        @include lib-message($_message-type: global-note);
+        margin: 0;
+    }
+
+    &.cookie {
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        right: 0;
+        z-index: 3;
+
+        .actions {
+            margin-top: $indent__s;
+        }
+    }
+
+    &.demo {
+        @include lib-message($_message-type: global-caution);
+        margin-bottom: 0;
+        text-align: center;
+    }
+}
+
+//
+//  Footer
+//  ---------------------------------------------
 
 .page-footer {
-  margin-top: 120px;
-  padding: 0;
-  width: 50%;
-  float:right;
+    @include lib-css(background-color, $footer__background-color);
+    margin-top: auto;
 }
-
 
 .footer {
-  text-transform: uppercase;
-  &.content {
-    clear: both;
-    border-top: 4px solid $nav-color;
-    padding-top: 20px;
-    .block {
-      &.newsletter {
-        float: none;
-      }
-    }
-
-    .links {
-      margin: 0;
-      padding: 0;
-    }
-  }
-
-  .copyright {
-    text-align: right;
-    width: 100%;
-    font-size: 11px;
-    color: $nav-color;
-    margin-top: 10px;
-  }
-
-  li {
-    a {
-      color: $nav-color;
-      font: normal 14px "Raleway-Bold", "Helvetica Neue", Verdana, Arial, sans-serif;
-      line-height: 26px;
-    }
-  }
-
-
-  .footer-newsletter-btn {
-    margin-top: 25px;
-    a {
-      border: 1px solid $btn-border-color;
-      color: $nav-color;
-      display: inline-block;
-      padding: 8px 10px;
-      text-shadow: none;
-      background-color: $button-color;
-      font-size: 13px;
-      font-weight: normal;
-      font-family: 'Raleway', "Helvetica Neue", Verdana, Arial, sans-serif;
-      line-height: 19px;
-      &:hover, &:focus {
-        text-decoration: none;
-      }
-    }
-  }
-
-  .bugs {
-    display: none;
-  }
-}
-
-.product {
-  &.info {
-    &.detailed {
-      display: none;
-    }
-  }
-}
-
-
-@media all and (min-width: $screen__m) {
-  .logo {
-    left: 0;
-    top: 5px;
-  }
-
-  .footer {
     &.content {
-      width: 50%;
-      float: right;
-      padding: 20px 0;
+        border-top: 1px solid $border-color__base;
+        margin-top: 25px;
+        padding-bottom: 25px;
+        padding-top: 25px;
+
+        ul {
+            @extend .abs-reset-list;
+        }
+
+        .links {
+            > li {
+                margin: 0 0 8px;
+            }
+        }
+
+        .switcher-store {
+            margin: 0 0 30px;
+        }
     }
-  }
+
+    .copyright,
+    .bugs {
+        display: block;
+        margin: 20px 0 0;
+    }
 }
 
-//Shop buttons block //  
-.shop-buttons-bottom{
-	width:100%; 
-	overflow:hidden;
+.page-header,
+.page-footer {
+    .switcher {
+        margin-right: 10px;
+
+        .options {
+            @include lib-dropdown(
+                $_dropdown-actions-padding            : 0,
+                $_dropdown-list-item-padding          : 0,
+                $_dropdown-toggle-icon-content        : $icon-down,
+                $_dropdown-toggle-active-icon-content : $icon-up,
+                $_icon-font-text-hide                 : true,
+                $_icon-font-size                      : 22px,
+                $_icon-font-line-height               : 22px,
+                $_dropdown-list-min-width             : 160px
+            );
+
+            ul.dropdown {
+                a {
+                    display: block;
+                    padding: 8px;
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+
+        li {
+            font-size: $font-size__s;
+            margin: 0;
+        }
+
+        .label {
+            @extend .abs-visually-hidden;
+        }
+
+        strong {
+            font-weight: $font-weight__regular;
+        }
+    }
 }
-#shop-buttons-bottom-wrapper {
-	max-width: 450px; 
-	width: 100%;
+
+//
+//  Widgets
+//  ---------------------------------------------
+
+.sidebar {
+    .widget.block:not(:last-child),
+    .widget:not(:last-child) {
+        @extend .abs-margin-for-blocks-and-widgets;
+    }
 }
-#shop-bottom-men{
-	height:100px; 
-	float:left; 
-	width:165px; 
-	background: #000; 
-	color: #fff; 
-	font-size: +2em; 
-	padding-top: 25px; 
-	text-align: right;
-	a {
-		color: #fff; 
-		text-decoration: none; 
-		display:block; 
-		width: 100%; 
-		height: 100%;
-	}
+
+.widget {
+    clear: both;
+
+    .block-title {
+        @extend .abs-block-title;
+    }
 }
-#shop-bottom-men-delimiter{
-	height:100px; 
-	float:left; 
-	background: #000; 
-	color: #fff; 
-	font-size: +2em; 
-	padding-top: 25px; 
-	padding-left: 5px; 
-	padding-right: 5px; 
+
+.page-header,
+.page-footer {
+    .widget.block {
+        @include lib-css(margin, $indent__base 0);
+    }
 }
-#shop-bottom-women {
-	height:100px; 
-	float:left; 
-	width:210px; 
-	background: #000; 
-	color: #fff; 
-	font-size: +2em; 
-	padding-top: 25px; 
-	text-align: left;
-	a {
-		color: #fff; 
-		text-decoration: none; 
-		display:block; 
-		width: 100%; 
-		height: 100%;
-	}
+
+.no-display {
+    @extend .abs-no-display;
 }
-#shop-buttons-bottom-shopnow-wrapper {
-    max-width: 320px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+
+//
+//  Calendar
+//  ---------------------------------------------
+
+.ui-datepicker {
+    td {
+        padding: 0;
+    }
 }
-#shop-bottom-shopnow {
-    height: 100px;
-    float: left;
-    width: 320px;
-    background: #000;
-    color: #fff;
-    font-size: +2em;
-    padding-top: 25px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-	a {
-		color: #fff; 
-		text-decoration: none; 
-		display:block; 
-		width: 100%; 
-		height: 100%;
-	}
-}
-#topmenu-account-link {
-    dispay: none;
-}
-@media only screen and (max-width: 768px) {
-    #topmenu-account-link {
-        display: block;
-        margin-top: 25px;
-        margin-bottom: 25px !important;
+
+//
+//  Desktop
+//  _____________________________________________
+
+@include min-screen($screen__m) {
+
+    html,
+    body {
+        height: 100%; // Stretch screen area for sticky footer
+    }
+
+    .page-wrapper {
+        @include lib-vendor-prefix-display(flex);
+        @include lib-vendor-prefix-flex-direction(column);
+        min-height: 100%; // Stretch content area for sticky footer
+
+        > .breadcrumbs,
+        > .top-container,
+        > .widget {
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .ie10 &,
+        .ie11 & {
+            height: 100%;
+        }
+    }
+
+    .navigation ul {
+        padding: 0 8px;
+    }
+
+    .header {
+        &.panel {
+            > .header.links {
+                float: right;
+                font-size: 0;
+                @include lib-list-inline();
+                margin-left: auto;
+
+                > li {
+                    font-size: $font-size__base;
+                    margin: 0 0 0 15px;
+
+                    &.welcome,
+                    a {
+                        line-height: 1.4;
+                    }
+
+                    &.welcome {
+                        a {
+                            @include lib-css(padding-left, $indent__xs);
+                        }
+                    }
+                }
+            }
+        }
+
+        &.content {
+            @extend .abs-add-clearfix-desktop;
+            padding: $indent__l $indent__base 0;
+        }
+    }
+
+    .page-header {
+        border: 0;
+        margin-bottom: 0;
+
+        .panel.wrapper {
+            border-bottom: 1px solid $secondary__color;
+        }
+
+        .header.panel {
+            @extend .abs-add-clearfix-desktop;
+            padding-bottom: $indent__s;
+            padding-top: $indent__s;
+        }
+
+        .switcher {
+            display: inline-block;
+        }
+    }
+
+    .page-main {
+        > .page-title-wrapper {
+            .page-title {
+                display: inline-block;
+            }
+
+            .page-title + .action {
+                float: right;
+                margin-top: $indent__base;
+            }
+        }
+    }
+
+    .logo {
+        margin: -8px auto 25px 0;
+
+        img {
+            max-height: inherit;
+        }
+    }
+
+    .footer {
+        &.content {
+            .block {
+                float: right;
+            }
+
+            .links {
+                display: inline-block;
+                margin-bottom: 20px;
+                padding: 0 50px 0 0;
+                vertical-align: top;
+            }
+
+            .switcher.store {
+                display: inline-block;
+                padding-right: 50px;
+                vertical-align: top;
+            }
+        }
+
+        .copyright {
+            @extend .abs-add-clearfix-desktop;
+        }
     }
 }

@@ -1,482 +1,518 @@
-@import 'variables';
-@import 'module/common';
+//
+//  Variables
+//  _____________________________________________
 
+$account-nav-background              : $sidebar__background-color !default;
+$account-nav-color                   : false !default;
 
-.customer-account-login, .customer-account-create {
-  .page-title-wrapper {
-    .page-title {
-      text-transform: uppercase;
-      font-size: 24px;
-      font-weight: 600;
-      line-height: 1.2;
-      text-rendering: optimizeLegibility;
-      color: $breadcrumbs-color;
-      border-bottom: 1px solid $border-color;
-      padding-bottom: 3px;
-      margin-bottom: 15px;
-    }
-  }
-}
+$account-nav-current-border          : 3px solid transparent !default;
+$account-nav-current-border-color    : $color-orange-red1 !default;
+$account-nav-current-color           : false !default;
+$account-nav-current-font-weight     : $font-weight__semibold !default;
+
+$account-nav-delimiter__border-color : $color-gray82 !default;
+
+$account-nav-item-hover              : $color-gray91 !default;
+
+$_password-default                   : $color-gray-light01 !default;
+$_password-weak                      : #ffafae !default;
+$_password-medium                    : #ffd6b3 !default;
+$_password-strong                    : #c5eeac !default;
+$_password-very-strong               : #81b562 !default;
 
 .login-container {
-  max-width: 360px;
-  margin: 0 auto;
-  .block {
-    .block-title {
-      margin: 0 0 0.5em;
-      color: $account-title;
-      font: normal 24px "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;;
-      font-weight: 400;
-      padding-bottom: 0;
-      line-height: 1.2;
-      text-transform: uppercase;
-      border-bottom: none;
-    }
-  }
-
-  .block-new-customer {
-    .actions-toolbar {
-      margin: 0;
-    }
-  }
-
-  .actions-toolbar {
-    > .secondary {
-      &:last-child {
-        display: block;
-        float: none;
-        text-align: left;
-      }
-      .action {
-        color: $link-color;
-        font-family: "Helvetica Neue", Verdana, Arial, sans-serif;
-        margin: 10px 0;
-      }
-    }
-    .primary {
-      a {
-        &.action {
-          margin: 0;
+    .block {
+        &-new-customer {
+            .actions-toolbar {
+                margin-top: 25px;
+            }
         }
-      }
+
+        .block-title {
+            @extend .abs-login-block-title;
+            @include lib-font-size(18);
+        }
     }
-  }
-}
 
-
-.fieldset {
-  position: relative;
-  margin: 0;
-  > .field {
-    &:not(.choice) {
-      margin: 0 0 10px;
-      > .label {
-        padding: 0;
-        font: normal  13px "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
-        width: auto;
-        line-height: 19px;
-        font-weight: 600;
-        margin-bottom: 2px;
-        text-align: left;
-        display: block;
-        float: none;
+    .fieldset {
+        @include lib-form-hasrequired(bottom);
         &:after {
-          color: $star-color;
-          font-family: "Helvetica Neue", Verdana, Arial, sans-serif;
+            margin-top: 35px;
         }
-      }
     }
-    
-    &.choice, &.no-label {
-      background-color: #f4f4f4;
-      display: inline-block;
-      width: auto;
-      max-width: none;
-      min-width: 250px;
-      float: none;
-      padding: 6px 10px;
-      input[type="checkbox"] {
-        margin: 3px 10px 0 0;
-        float: left;
-      }
-      .label {
-        padding: 0;
-        > span {
-          font-size: 13px;
-          font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
-          font-weight: 600;
+}
+
+.block-addresses-list {
+    .items.addresses {
+        > .item {
+            margin-bottom: $indent__base;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
         }
-      }
-      &:before {
-        width: 0;
-        padding: 0;
-      }
-      &:hover, &:focus {
-        background-color: #ececec;
-      }
     }
-    .control {
-      float: none;
-      max-width: 365px;
-      width: 100%;
-    }
-  }
-
-  &:after {
-    position: absolute;
-    bottom: 200px;
-    right: 0;
-    margin-top: 0;
-    font-size: 12px;
-    color: $star-color;
-    font-family: "Helvetica Neue", Verdana, Arial, sans-serif;
-  }
 }
 
-.column {
-  &:not(.sidebar-additional), &:not(.sidebar-main) {
-    form {
-      .actions-toolbar {
-        margin-left: 0;
-      }
+.form-address-edit {
+    #region_id {
+        display: none;
     }
-  }
+
+    .actions-toolbar .action.primary {
+        @extend .abs-button-l;
+    }
 }
 
-.block-customer-login {
-  margin-top: 20px;
-  .note {
-    font-style: italic;
-    font-family: Georgia, Times, "Times New Roman", serif;
-    font-size: 13px;
-    color: $note-color;
-  }
+.form-edit-account {
+    .fieldset.password {
+        display: none;
+    }
 }
 
-.actions-toolbar {
-  .primary {
-    text-align: center;
-    float: none;
-    min-width: 50%;
-    margin-top: 20px;
-    .action {
-      float: none;
-      max-width: 365px;
-      text-align: center;
-      border-radius: 0;
-      border: none;
-      text-transform: uppercase;
-      width: 100%;
-      line-height: 19px;
-      font: normal 13px "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
-      &:hover, &:focus {
-        background: $nav-color;
-        border: none;
-      }
-      &.create {
-        background-color: $link-color;
-        &:hover, &:focus {
-          background-color: $link-color;
+.box-billing-address,
+.box-shipping-address,
+.box-information,
+.box-newsletter {
+    .box-content {
+        line-height: 26px;
+    }
+}
+
+//  Full name fieldset
+.fieldset {
+    .fullname {
+        &.field {
+            > .label {
+                @extend .abs-visually-hidden;
+
+                + .control {
+                    width: 100%;
+                }
+            }
         }
-      }
-      &[type="submit"] {
-        background-color: $nav-color;
-        &:hover, &:focus {
-          background-color: $nav-color;
+
+        .field {
+            @extend .abs-add-clearfix;
         }
-      }
-      span {
-        line-height: 19px;
-      }
     }
-  }
-}
-.form-create-account {
-  .legend {
-    font-style: italic;
-    font-family: Georgia, Times, "Times New Roman", serif;
-    font-size: 13px;
-    color: $note-color;
-    margin-bottom: 7px;
-    line-height: 1.5;
-  }
-  .actions-toolbar {
-    max-width: 455px;
-    border-top: 1px solid $border-color;
-    margin: 10px 0 0;
-    padding-top: 10px;
-    .primary {
-      float: right;
-      margin-top: 0;
-      .action {
-        margin: 0;
-      }
-    }
-    .secondary {
-      .back {
-        line-height: 20px;
-        display: inline-block;
-        padding: 5px;
-        font-family: "Helvetica Neue", Verdana, Arial, sans-serif;
-        color: $link-color;
-        &:before {
-          content: '\00AB';
-          font-size: 80%;
-        }
-      }
-    }
-  }
 }
 
-#password-error, #password-strength-meter-container {
-  display: none;
-}
-
-.create {
-  &.account {
-    .legend {
-      display: none;
-    }
-  }
-}
+//
+//  My account
+//  ---------------------------------------------
 
 .account {
-  .page-title-wrapper {
-    .page-title {
-      font: normal 24px 'Raleway-SemiBold';
-      color: $subtitle-color;
-    }
-  }
-  .block-title, .box-title {
-    text-transform: uppercase;
-  }
-  .sidebar {
-    .block-title {
-      border-top: 1px solid $dark-border-color;
-      font-family: 'Raleway-SemiBold';
-      padding: 10px 0 0;
-      margin-bottom: 5px;
-      color: $nav-color;
-      > strong {
-        font-size: 14px;
-        font-weight: 600;
-      }
-    }
-    .empty {
-      text-transform: none;
-      font-family: Verdana, Arial, sans-serif;
-      color: $subtitle-color;
-    }
-  }
-  .main {
-    &.column {
-      .block {
-        .block-content {
-          .box {
-            margin: 0!important;
-          }
+    .column.main {
+        h2 {
+            margin-top: 0;
         }
-        padding-bottom: 40px;
-        margin-bottom: 45px;
-        border-bottom: 1px solid $dark-border-color;
-        .block-title, .box-title {
-          color: $account-title;
-          font-family: "Raleway-SemiBold";
-        }
-        .block-title {
-          padding-bottom: 7px;
-          border-bottom: 1px solid $dark-border-color;
-          > strong {
-            font-size: 15px!important;
-          }
-          .action {
-            &.edit {
-              padding: 10px;
-              margin: 0;
-              font-size: 12px;
+
+        .toolbar {
+            text-align: center;
+            .limiter-options {
+                width: auto;
             }
-          }
         }
-      }
+
+        .limiter {
+            >.label {
+                @extend .abs-visually-hidden;
+            }
+        }
+
+        .block:not(.widget) {
+            @extend .abs-account-blocks;
+        }
     }
-    .legend {
-      font-size: 18px;
-      display: block;
-      border-bottom: 1px solid $border-color;
-      text-transform: uppercase;
-      margin-bottom: 15px;
-      padding-bottom: 7px;
-      width: 100%;
-      color: $account-title;
+
+    .sidebar-additional {
+        margin-top: 40px;
     }
-    .form-newsletter-manage {
-      .legend {
-        display: none;
-      }
-    }
-  }
-  .box-content {
-    address, p {
-      font-style: italic;
-      font-family: Georgia, Times, "Times New Roman", serif;
-    }
-  }
-  .box-actions {
-    .action {
-      color: $link-color;
-      &.edit {
-        text-transform: uppercase;
-        font-size: 12px;
-        font-family: Verdana, Arial, sans-serif;
-      }
-      &.change-password {
-        font-family: Georgia, Times, "Times New Roman", serif;
-        font-style: italic;
-      }
-    }
-  }
-  address, p {
-    font-family: Verdana, Arial, sans-serif;
-    color: $subtitle-color;
-  }
-  .fieldset {
-    margin-top: 30px;
-    margin-bottom: 30px;
-    > .field {
-      &:not(.choice) {
+
+    .table-wrapper {
         &:last-child {
-          margin-bottom: 0;
+            margin-bottom: 0;
         }
-        > .label {
-          color: $subtitle-color;
-          font-family: "Raleway-SemiBold", "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
-          font-weight: 600;
-          &:after {
-            font-size: 11px;
-            margin: 0;
-          }
-        }
-      }
-      &.choice {
-        > .label {
-          font-family: "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
-          > span {
-            font-weight: 400;
-            font-size: 14px;
-          }
-        }
-        &.newsletter {
-          .label {
-            > span {
-              font-weight: 600;
-              font-size: 13px;
+
+        .action {
+            margin-right: 15px;
+
+            &:last-child {
+                margin-right: 0;
             }
-          }
         }
-      }
     }
-  }
+
+    .table-return-items {
+        .qty {
+            .input-text {
+                @extend .abs-input-qty;
+            }
+        }
+    }
 }
 
-.form-newsletter-manage, .form-edit-account, .form-address-edit, .form-wishlist-items {
-  .actions-toolbar {
-    clear: both;
-    margin: 10px 0 0;
-    padding-top: 10px;
-    border-top: 1px solid $border-color;
-    text-align: right;
-    .action {
-      &.back {
-        color: $link-color;
-        line-height: 20px;
-        display: inline-block;
-        padding: 5px;
-        font-family: Verdana, Arial, sans-serif;
+//  Checkout address (create shipping address)
+.field.street {
+    .field.additional {
+        .label {
+            @extend .abs-visually-hidden;
+        }
+    }
+}
+
+//
+//  Account navigation
+//  ---------------------------------------------
+
+.account-nav {
+    .title {
+        @extend .abs-visually-hidden;
+    }
+
+    .content {
+        @include lib-css(background, $account-nav-background);
+        padding: 15px 0;
+    }
+
+    .item {
+        margin: 3px 0 0;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        a,
+        > strong {
+            @include lib-css(color, $account-nav-color);
+            border-left: 3px solid transparent;
+            display: block;
+            padding: $indent__xs 18px $indent__xs 15px;
+        }
+
+        a {
+            text-decoration: none;
+
+            &:hover {
+                @include lib-css(background, $account-nav-item-hover);
+            }
+        }
+
+        &.current {
+            a,
+            strong {
+                @include lib-css(border-color, $account-nav-current-border-color);
+                @include lib-css(color, $account-nav-current-color);
+                @include lib-css(font-weight, $account-nav-current-font-weight);
+            }
+
+            a {
+                @include lib-css(border-color, $account-nav-current-border-color);
+            }
+        }
+
+        .delimiter {
+            border-top: 1px solid $account-nav-delimiter__border-color;
+            display: block;
+            margin: $indent__s 1.8rem;
+        }
+    }
+}
+
+//
+//  Blocks & Widgets
+//  ---------------------------------------------
+
+.block {
+    @extend .abs-margin-for-blocks-and-widgets;
+    .column.main & {
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .title {
+        margin-bottom: $indent__s;
+
+        strong {
+            @include lib-heading(h4);
+            .column.main & {
+                font-size: $h3__font-size;
+            }
+        }
+    }
+
+    p:last-child {
+        margin: 0;
+    }
+
+    .box-actions {
+        margin-top: $indent__xs;
+    }
+}
+
+//
+//  Password Strength Meter
+//  ---------------------------------------------
+
+.field.password {
+    .control {
+        @include lib-vendor-prefix-display();
+        @include lib-vendor-prefix-flex-direction();
+
+        .mage-error {
+            @include lib-vendor-prefix-order(2);
+        }
+
+        .input-text {
+            @include lib-vendor-prefix-order(0);
+            z-index: 2;
+        }
+    }
+}
+
+.password-strength-meter {
+    background-color: $_password-default;
+    height: $form-element-input__height;
+    line-height: $form-element-input__height;
+    padding: $form-element-input__padding;
+    position: relative;
+    z-index: 1;
+
+    &:before {
+        content: '';
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        z-index: -1;
+    }
+
+    .password-none & {
         &:before {
-          content: '\00ab';
-          display: inline-block;
-          font-size: 80%;
-          float: left;
-          margin-right: 5px;
+            background-color: $_password-default;
+            width: 100%;
         }
-      }
     }
-    .primary {
-      float: none;
-      min-width: 0;
-      margin-top: 0;
-      .action {
-        color: $button-color;
-        width: auto;
-        padding: 7px 15px;
-        font-size: 13px;
-        min-width: 140px;
-      }
+
+    .password-weak & {
+        &:before {
+            background-color: $_password-weak;
+            width: 25%;
+        }
     }
-  }
-}
 
-.form-newsletter-manage {
-  .fieldset {
-    border-top: 1px solid $border-color;
-    margin-bottom: 20px;
-  }
-}
-
-.form-edit-account, .form-address-edit {
-  input {
-    color: $subtitle-color!important;
-    font-size: 15px;
-  }
-}
-
-.field {
-  &.street {
-    .field {
-     &.additional {
-       .label {
-         height: auto;
-         margin: 0;
-         position: static;
-         width: auto;
-         color: $subtitle-color;
-         font-family: "Raleway-SemiBold", "Raleway", "Helvetica Neue", Verdana, Arial, sans-serif;
-         font-weight: 600;
-         font-size: 13px;
-       }
-     }
+    .password-medium & {
+        &:before {
+            background-color: $_password-medium;
+            width: 50%;
+        }
     }
-  }
-}
 
-@media only screen and (min-width: 768px) {
-  .block-customer-login {
-    padding-left: 20px;
-    border-left: 1px solid $border-color;
-  }
-
-  .form-create-account {
-    margin-left: 30px;
-  }
-
-  .login-container {
-    max-width: none;
-    margin: 0;
-  }
-
-  #maincontent {
-    > .page-title-wrapper {
-      .page-title {
-        display: block;
-      }
+    .password-strong & {
+        &:before {
+            background-color: $_password-strong;
+            width: 75%;
+        }
     }
-  }
+
+    .password-very-strong & {
+        &:before {
+            background-color: $_password-very-strong;
+            width: 100%;
+        }
+    }
 }
 
+.control.captcha-image {
+    @include lib-css(margin-top, $indent__s);
 
+    .captcha-img {
+        vertical-align: middle;
+    }
+}
 
-@media only screen and (min-width: 992px) {
-  .block-customer-login {
-    padding-left: 60px;
-  }
+//
+//  Mobile
+//  _____________________________________________
+
+@include max-screen($screen__s) {
+    .account {
+        .column.main,
+        .sidebar-additional {
+            margin: 0;
+        }
+    }
+}
+
+@include max-screen($screen__m) {
+    .login-container {
+        .fieldset {
+            &:after {
+                text-align: center;
+            }
+        }
+    }
+
+    .account {
+        .page.messages {
+            margin-bottom: $indent__xl;
+        }
+
+        .toolbar {
+            @extend .abs-pager-toolbar-mobile;
+        }
+    }
+
+    .control.captcha-image {
+        .captcha-img {
+            @include lib-css(margin-bottom, $indent__s);
+            display: block;
+        }
+    }
+
+    .customer-account-index {
+        .page-title-wrapper {
+            position: relative;
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+@include min-screen($screen__m) {
+    .login-container {
+        @extend .abs-add-clearfix-desktop;
+
+        .block {
+            @extend .abs-blocks-2columns;
+            &.login {
+                .actions-toolbar {
+                    > .primary {
+                        margin-bottom: 0;
+                        margin-right: $indent__l;
+                    }
+
+                    > .secondary {
+                        float: left;
+                    }
+                }
+            }
+        }
+
+        .fieldset {
+            &:after {
+                @extend .abs-margin-for-forms-desktop;
+            }
+
+            > .field {
+                > .control {
+                    width: 55%;
+                }
+            }
+        }
+    }
+
+    //  Full name fieldset
+    .fieldset {
+        .fullname {
+            .field {
+                .label {
+                    @include lib-css(margin, $form-field-type-label-inline__margin);
+                    @include lib-css(padding, $form-field-type-label-inline__padding);
+                    @include lib-css(text-align, $form-field-type-label-inline__align);
+                    @include lib-css(width, $form-field-type-label-inline__width);
+                    box-sizing: border-box;
+                    float: left;
+                }
+
+                .control {
+                    @include lib-css(width, $form-field-type-control-inline__width);
+                    float: left;
+                }
+            }
+        }
+    }
+
+    .form.password.reset,
+    .form.send.confirmation,
+    .form.password.forget,
+    .form.create.account {
+        min-width: 600px;
+        width: 50%;
+    }
+
+    //
+    //  My account
+    //  ---------------------------------------------
+
+    .account.page-layout-2columns-left {
+        .sidebar-main,
+        .sidebar-additional {
+            width: 22.3%;
+        }
+
+        .column.main {
+            width: 77.7%;
+        }
+    }
+
+    .account {
+        .column.main {
+            .block:not(.widget) {
+                .block-content {
+                    @extend .abs-add-clearfix-desktop;
+
+                    .box {
+                        @extend .abs-blocks-2columns;
+                    }
+                }
+            }
+        }
+
+        .toolbar {
+            @extend .abs-pager-toolbar;
+        }
+    }
+
+    .block-addresses-list {
+        .items.addresses {
+            @extend .abs-add-clearfix-desktop;
+            font-size: 0;
+
+            > .item {
+                display: inline-block;
+                font-size: $font-size__base;
+                margin-bottom: $indent__base;
+                vertical-align: top;
+                width: 48.8%;
+
+                &:nth-last-child(1),
+                &:nth-last-child(2) {
+                    margin-bottom: 0;
+                }
+
+                &:nth-child(even) {
+                    margin-left: 2.4%;
+                }
+            }
+        }
+    }
+
+    //
+    //  Welcome block
+    //  ---------------------------------------------
+
+    .dashboard-welcome-toggler {
+        @extend .abs-visually-hidden-desktop;
+    }
+
+    .control.captcha-image {
+        .captcha-img {
+            margin: 0 $indent__s $indent__s 0;
+        }
+    }
 }
