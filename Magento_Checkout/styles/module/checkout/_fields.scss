@@ -2,7 +2,11 @@
 //  Variables
 //  _____________________________________________
 
-$checkout-field-validation__border-color: $form-element-validation__border-error !default;
+$checkout-field-validation__border-color: $form-element-validation__border-error;
+
+//
+//  Common
+//  _____________________________________________
 
 .field {
     .control {
@@ -20,7 +24,7 @@ $checkout-field-validation__border-color: $form-element-validation__border-error
         }
 
         .field-tooltip-action {
-            @include lib-css(line-height, $checkout-tooltip-icon__font-size);
+            line-height: $checkout-tooltip-icon__font-size;
         }
     }
 
@@ -29,7 +33,7 @@ $checkout-field-validation__border-color: $form-element-validation__border-error
             input,
             select,
             textarea {
-                @include lib-css(border-color, $checkout-field-validation__border-color);
+                border-color: $checkout-field-validation__border-color;
             }
         }
     }
@@ -37,8 +41,8 @@ $checkout-field-validation__border-color: $form-element-validation__border-error
 
 .opc-wrapper {
     .fieldset {
-        > .field {
-            > .label {
+        & > .field {
+            & > .label {
                 font-weight: $font-weight__regular;
             }
         }
@@ -53,12 +57,12 @@ $checkout-field-validation__border-color: $form-element-validation__border-error
     //  ToDo UI: remove with global blank theme .field.required update
     .opc-wrapper {
         .fieldset {
-            > .field {
+            & > .field {
                 &.required,
                 &._required {
                     position: relative;
 
-                    > label {
+                    & > label {
                         padding-right: 25px;
 
                         &:after {
