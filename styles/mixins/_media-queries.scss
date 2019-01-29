@@ -32,7 +32,7 @@
     }
 }
 @mixin max-screen($max) {
-    @include mq($max-width: $max - 1) {
+    @include mq($max-width: $max) {
         @content;
     }
 }
@@ -68,3 +68,4 @@
         @content;
     }
 }
+
