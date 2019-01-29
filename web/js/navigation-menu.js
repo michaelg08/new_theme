@@ -1,14 +1,12 @@
-/**
- * @deprecated
- * @see lib/web/mage/menu.js
- */
+/*jshint jquery:true*/
+
 define([
-    'jquery',
-    'matchMedia',
-    'mage/template',
-    'mage/dropdowns',
-    'mage/terms'
-], function ($, mediaCheck, mageTemplate) {
+    "jquery",
+    "matchMedia",
+    "mage/template",
+    "mage/dropdowns",
+    "mage/terms"
+], function($, mediaCheck, mageTemplate) {
     'use strict';
 
     $.widget('mage.navigationMenu', {
@@ -22,18 +20,16 @@ define([
             hoverOutTimeout: 500,
             submenuAnimationSpeed: 200,
             collapsable: true,
-            collapsableDropdownTemplate:
-                '<script type="text/x-magento-template">' +
-                    '<li class="level0 level-top more parent">' +
-                        '<div class="submenu">' +
-                            '<ul><%= elems %></ul>' +
-                        '</div>' +
-                    '</li>' +
+            collapsableDropdownTemplate: '<script type="text/x-magento-template">' +
+                '<li class="level0 level-top more parent">' +
+                '<div class="submenu">' +
+                '<ul><%= elems %></ul>' +
+                '</div>' +
+                '</li>' +
                 '</script>'
         },
 
-        /** @inheritdoc */
-        _create: function () {
+        _create: function() {
             this.itemsContainer = $(this.options.itemsContainer, this.element);
             this.topLevel = $(this.options.topLevel, this.element);
             this.topLevelSubmenu = $(this.options.topLevelSubmenu, this.topLevel);
@@ -41,58 +37,41 @@ define([
             this._bind();
         },
 
-        /**
-         * @private
-         */
-        _init: function () {
+        _init: function() {
             if (this.options.collapsable) {
-                setTimeout($.proxy(function () {
+                setTimeout($.proxy(function() {
                     this._checkToCollapseOrExpand();
                 }, this), 100);
             }
         },
 
-        /**
-         * @private
-         */
-        _bind: function () {
+        _bind: function() {
             this._on({
-                /**
-                 * @param {jQuery.Event} e
-                 */
-                'mouseenter > ul > li.level0': function (e) {
+                'mouseenter > ul > li.level0': function(e) {
                     if (!this.entered) { // fix IE bug with 'mouseenter' event
                         this.timeoutId && clearTimeout(this.timeoutId);
-                        this.timeoutId = setTimeout($.proxy(function () {
+                        this.timeoutId = setTimeout($.proxy(function() {
                             this._openSubmenu(e);
                         }, this), this.options.hoverInTimeout);
                         this.entered = true;
                     }
                 },
-
-                /**
-                 * @param {jQuery.Event} e
-                 */
-                'mouseleave > ul > li.level0': function (e) {
+                'mouseleave > ul > li.level0': function(e) {
                     this.entered = null;
 
                     this.timeoutId && clearTimeout(this.timeoutId);
-                    this.timeoutId = setTimeout($.proxy(function () {
+                    this.timeoutId = setTimeout($.proxy(function() {
                         this._closeSubmenu(e.currentTarget);
                     }, this), this.options.hoverOutTimeout);
                 },
-
-                /**
-                 * @param {jQuert.Event} e
-                 */
-                'click': function (e) {
+                'click': function(e) {
                     e.stopPropagation();
                 }
             });
 
             $(document)
-                .on('click.hideMenu', $.proxy(function () {
-                    var isOpened = this.topLevel.filter(function () {
+                .on('click.hideMenu', $.proxy(function(e) {
+                    var isOpened = this.topLevel.filter(function() {
                         return $(this).data('opened');
                     });
 
@@ -102,9 +81,9 @@ define([
                 }, this));
 
             $(window)
-                .on('resize', $.proxy(function () {
+                .on('resize', $.proxy(function() {
                     this.timeoutOnResize && clearTimeout(this.timeoutOnResize);
-                    this.timeoutOnResize = setTimeout($.proxy(function () {
+                    this.timeoutOnResize = setTimeout($.proxy(function() {
                         if (this.options.collapsable) {
                             if ($(this.options.expandedTopLevel, this.element).length) {
                                 this._expandMenu();
@@ -115,18 +94,14 @@ define([
                 }, this));
         },
 
-        /**
-         * @param {jQuery.Event} e
-         * @private
-         */
-        _openSubmenu: function (e) {
+        _openSubmenu: function(e) {
             var menuItem = e.currentTarget;
 
             if (!$(menuItem).data('opened')) {
                 this._closeSubmenu(menuItem, true, true);
 
                 $(this.options.topLevelSubmenu, menuItem)
-                    .slideDown(this.options.submenuAnimationSpeed, $.proxy(function () {
+                    .slideDown(this.options.submenuAnimationSpeed, $.proxy(function() {
                         $(menuItem).addClass(this.options.topLevelHoverClass);
                         $(menuItem).data('opened', true);
                     }, this));
@@ -134,22 +109,16 @@ define([
                 $(e.target)
                     .addClass(this.options.topLevelHoverClass)
                     .siblings(this.options.topLevel)
-                        .removeClass(this.options.topLevelHoverClass);
+                    .removeClass(this.options.topLevelHoverClass);
             }
         },
 
-        /**
-         * @param {*} menuItem
-         * @param {*} excludeCurrent
-         * @param {*} fast
-         * @private
-         */
-        _closeSubmenu: function (menuItem, excludeCurrent, fast) {
+        _closeSubmenu: function(menuItem, excludeCurrent, fast) {
             var topLevel = $(this.options.topLevel, this.element),
                 activeSubmenu = $(this.options.topLevelSubmenu, menuItem || null);
 
             $(this.options.topLevelSubmenu, topLevel)
-                .filter(function () {
+                .filter(function() {
                     return excludeCurrent ? $(this).not(activeSubmenu) : true;
                 })
                 .slideUp(fast ? 0 : this.options.submenuAnimationSpeed);
@@ -159,22 +128,17 @@ define([
                 .data('opened', false);
         },
 
-        /**
-         * @private
-         */
-        _checkToCollapseOrExpand: function () {
-            var navWidth, totalWidth, startCollapseIndex;
-
-            if ($('html').hasClass('lt-640') || $('html').hasClass('w-640')) {
+        _checkToCollapseOrExpand: function() {
+            if ($("html").hasClass("lt-640") || $("html").hasClass("w-640")) {
                 return;
             }
 
-            navWidth = this.itemsContainer.width();
-            totalWidth = 0;
-            startCollapseIndex = 0;
+            var navWidth = this.itemsContainer.width(),
+                totalWidth = 0,
+                startCollapseIndex = 0;
 
-            $.each($(this.options.topLevel, this.element), function (index, item) {
-                totalWidth += $(item).outerWidth(true);
+            $.each($(this.options.topLevel, this.element), function(index, item) {
+                totalWidth = totalWidth + $(item).outerWidth(true);
 
                 if (totalWidth > navWidth && !startCollapseIndex) {
                     startCollapseIndex = index - 2;
@@ -184,20 +148,15 @@ define([
             this[startCollapseIndex ? '_collapseMenu' : '_expandMenu'](startCollapseIndex);
         },
 
-        /**
-         * @param {*} startCollapseIndex
-         * @private
-         */
-        _collapseMenu: function (startCollapseIndex) {
-            this.elemsToCollapse = this.topLevel.filter(function (index) {
+        _collapseMenu: function(startCollapseIndex) {
+            this.elemsToCollapse = this.topLevel.filter(function(index) {
                 return index > startCollapseIndex;
             });
             this.elemsToCollapseClone = $('<div></div>').append(this.elemsToCollapse.clone()).html();
 
             this.collapsableDropdown = $(
                 mageTemplate(
-                    this.options.collapsableDropdownTemplate,
-                    {
+                    this.options.collapsableDropdownTemplate, {
                         elems: this.elemsToCollapseClone
                     }
                 )
@@ -207,18 +166,12 @@ define([
             this.elemsToCollapse.detach();
         },
 
-        /**
-         * @private
-         */
-        _expandMenu: function () {
+        _expandMenu: function() {
             this.elemsToCollapse && this.elemsToCollapse.appendTo(this.itemsContainer);
             this.collapsableDropdown && this.collapsableDropdown.remove();
         },
 
-        /**
-         * @private
-         */
-        _destroy: function () {
+        _destroy: function() {
             this._expandMenu();
         }
     });
@@ -233,18 +186,12 @@ define([
             submenuContiniumEffect: false
         },
 
-        /**
-         * @private
-         */
-        _init: function () {
+        _init: function() {
             this._super();
             this._applySubmenuStyles();
         },
 
-        /**
-         * @private
-         */
-        _applySubmenuStyles: function () {
+        _applySubmenuStyles: function() {
             $(this.options.topLevelSubmenu, $(this.options.topLevel, this.element))
                 .removeAttr('style');
 
@@ -256,14 +203,10 @@ define([
                 });
         },
 
-        /**
-         * @param {jQuery.Event} e
-         * @private
-         */
-        _openSubmenu: function (e) {
+        _openSubmenu: function(e) {
             var menuItem = e.currentTarget,
                 submenu = $(this.options.topLevelSubmenu, menuItem),
-                openedItems = $(this.options.topLevel, this.element).filter(function () {
+                openedItems = $(this.options.topLevel, this.element).filter(function() {
                     return $(this).data('opened');
                 });
 
@@ -271,7 +214,7 @@ define([
                 this.heightToAnimate = $(this.options.itemsContainer, submenu).outerHeight(true);
 
                 if (openedItems.length) {
-                    this._closeSubmenu(menuItem, true, this.heightToAnimate, $.proxy(function () {
+                    this._closeSubmenu(menuItem, true, this.heightToAnimate, $.proxy(function() {
                         submenu.css({
                             height: 'auto'
                         });
@@ -281,7 +224,7 @@ define([
                 } else {
                     submenu.animate({
                         height: this.heightToAnimate
-                    }, this.options.submenuAnimationSpeed, $.proxy(function () {
+                    }, this.options.submenuAnimationSpeed, $.proxy(function() {
                         $(menuItem)
                             .addClass(this.options.topLevelHoverClass);
                     }, this));
@@ -294,16 +237,9 @@ define([
             }
         },
 
-        /**
-         * @param {*} menuItem
-         * @param {*} excludeCurrent
-         * @param {*} heightToAnimate
-         * @param {Function} callback
-         * @private
-         */
-        _closeSubmenu: function (menuItem, excludeCurrent, heightToAnimate, callback) {
+        _closeSubmenu: function(menuItem, excludeCurrent, heightToAnimate, callback, e) {
             var topLevel = $(this.options.topLevel, this.itemsContainer),
-                prevOpenedItem, prevOpenedSubmenu;
+                expandedTopLevel = e && $(e.target).closest(this.options.expandedTopLevel);
 
             if (!excludeCurrent) {
                 $(this.options.topLevelSubmenu, $(this.options.parentLevel, this.element))
@@ -315,14 +251,14 @@ define([
                     .data('opened', false)
                     .removeClass(this.options.topLevelHoverClass);
             } else {
-                prevOpenedItem = topLevel.filter(function () {
-                    return $(this).data('opened');
-                });
-                prevOpenedSubmenu = $(this.options.topLevelSubmenu, prevOpenedItem);
+                var prevOpenedItem = topLevel.filter(function() {
+                        return $(this).data('opened');
+                    }),
+                    prevOpenedSubmenu = $(this.options.topLevelSubmenu, prevOpenedItem);
 
                 prevOpenedSubmenu.animate({
                     height: heightToAnimate
-                }, this.options.submenuAnimationSpeed, 'linear', function () {
+                }, this.options.submenuAnimationSpeed, 'linear', function() {
                     $(this).css({
                         height: 0
                     });
@@ -335,10 +271,7 @@ define([
             }
         },
 
-        /**
-         * @private
-         */
-        _collapseMenu: function () {
+        _collapseMenu: function() {
             this._superApply(arguments);
             this._applySubmenuStyles();
         }
@@ -356,35 +289,28 @@ define([
             itemWithSubmenu: 'li.parent',
             titleWithSubmenu: 'li.parent > a',
             submenu: 'li.parent > .submenu',
-            toggleActionTemplate:
-                '<script type="text/x-magento-template">' +
-                    '<span data-action="toggle-nav" class="action toggle nav">Toggle Nav</span>' +
+            toggleActionTemplate: '<script type="text/x-magento-template">' +
+                '<span data-action="toggle-nav" class="action toggle nav">Toggle Nav</span>' +
                 '</script>',
-            submenuActionsTemplate:
-                '<script type="text/x-magento-template">' +
-                    '<li class="action all">' +
-                        '<a href="<%= categoryURL %>"><span>All <%= category %></span></a>' +
-                    '</li>' +
+            submenuActionsTemplate: '<script type="text/x-magento-template">' +
+                '<li class="action all">' +
+                '<a href="<%= categoryURL %>"><span>All <%= category %></span></a>' +
+                '</li>' +
                 '</script>',
-            navigationSectionsWrapperTemplate:
-                '<script type="text/x-magento-template">' +
-                    '<dl class="navigation-tabs" data-sections="tabs">' +
-                    '</dl>' +
+            navigationSectionsWrapperTemplate: '<script type="text/x-magento-template">' +
+                '<dl class="navigation-tabs" data-sections="tabs">' +
+                '</dl>' +
                 '</script>',
-            navigationItemWrapperTemplate:
-                '<script type="text/x-magento-template">' +
-                    '<dt class="item title <% if (active) { %>active<% } %>" data-section="title">' +
-                        '<a class="switch" data-toggle="switch" href="#TODO"><%= title %></a>' +
-                    '</dt>' +
-                    '<dd class="item content <% if (active) { %>active<%}%>" data-section="content">' +
-                    '</dd>' +
+            navigationItemWrapperTemplate: '<script type="text/x-magento-template">' +
+                '<dt class="item title <% if (active) { %>active<% } %>" data-section="title">' +
+                '<a class="switch" data-toggle="switch" href="#TODO"><%= title %></a>' +
+                '</dt>' +
+                '<dd class="item content <% if (active) { %>active<%}%>" data-section="content">' +
+                '</dd>' +
                 '</script>'
         },
 
-        /**
-         * @private
-         */
-        _init: function () {
+        _init: function() {
             this._super();
 
             this.mainContainer = $(this.options.mainContainer);
@@ -394,31 +320,25 @@ define([
             if (this.options.responsive) {
                 mediaCheck({
                     media: '(min-width: 768px)',
-                    entry: $.proxy(function () {
+                    entry: $.proxy(function() {
                         this._toggleDesktopMode();
                     }, this),
-                    exit: $.proxy(function () {
+                    exit: $.proxy(function() {
                         this._toggleMobileMode();
                     }, this)
                 });
             }
         },
 
-        /**
-         * @private
-         */
-        _bind: function () {
+        _bind: function() {
             this._super();
             this._bindDocumentEvents();
         },
 
-        /**
-         * @private
-         */
-        _bindDocumentEvents: function () {
+        _bindDocumentEvents: function() {
             if (!this.eventsBound) {
                 $(document)
-                    .on('click.toggleMenu', '.action.toggle.nav', $.proxy(function (e) {
+                    .on('click.toggleMenu', '.action.toggle.nav', $.proxy(function(e) {
                         if ($(this.element).data('opened')) {
                             this._hideMenu();
                         } else {
@@ -428,21 +348,21 @@ define([
                         this.mobileNav.scrollTop(0);
                         this._fixedBackLink();
                     }, this))
-                    .on('click.hideMenu', this.options.pageWrapper, $.proxy(function () {
+                    .on('click.hideMenu', this.options.pageWrapper, $.proxy(function() {
                         if ($(this.element).data('opened')) {
                             this._hideMenu();
                             this.mobileNav.scrollTop(0);
                             this._fixedBackLink();
                         }
                     }, this))
-                    .on('click.showSubmenu', this.options.titleWithSubmenu, $.proxy(function (e) {
+                    .on('click.showSubmenu', this.options.titleWithSubmenu, $.proxy(function(e) {
                         this._showSubmenu(e);
 
                         e.preventDefault();
                         this.mobileNav.scrollTop(0);
                         this._fixedBackLink();
                     }, this))
-                    .on('click.hideSubmenu', '.action.back', $.proxy(function (e) {
+                    .on('click.hideSubmenu', '.action.back', $.proxy(function(e) {
                         this._hideSubmenu(e);
                         this.mobileNav.scrollTop(0);
                         this._fixedBackLink();
@@ -452,73 +372,53 @@ define([
             }
         },
 
-        /**
-         * @private
-         */
-        _showMenu: function () {
+        _showMenu: function() {
             $(this.element).data('opened', true);
-            this.mainContainer.add('html').addClass(this.options.openedMenuClass);
+            this.mainContainer.add("html").addClass(this.options.openedMenuClass);
         },
 
-        /**
-         * @private
-         */
-        _hideMenu: function () {
+        _hideMenu: function() {
             $(this.element).data('opened', false);
-            this.mainContainer.add('html').removeClass(this.options.openedMenuClass);
+            this.mainContainer.add("html").removeClass(this.options.openedMenuClass);
         },
 
-        /**
-         * @param {jQuery.Event} e
-         * @private
-         */
-        _showSubmenu: function (e) {
-            var submenu;
-
+        _showSubmenu: function(e) {
             $(e.currentTarget).addClass('action back');
-            submenu = $(e.currentTarget).siblings('.submenu');
+            var submenu = $(e.currentTarget).siblings('.submenu');
 
             submenu.addClass('opened');
         },
 
-        /**
-         * @param {jQuery.Event} e
-         * @private
-         */
-        _hideSubmenu: function (e) {
+        _hideSubmenu: function(e) {
             var submenuSelector = '.submenu',
                 submenu = $(e.currentTarget).next(submenuSelector);
-
             $(e.currentTarget).removeClass('action back');
             submenu.removeClass('opened');
         },
 
-        /**
-         * @private
-         */
-        _renderSubmenuActions: function () {
+        _renderSubmenuActions: function() {
             $.each(
                 $(this.options.itemWithSubmenu),
-                $.proxy(function (index, item) {
-                    var actions = $(mageTemplate(
-                            this.options.submenuActionsTemplate,
-                            {
-                                category: $('> a > span', item).text(),
-                                categoryURL: $('> a', item).attr('href')
-                            }
-                        )),
-                        submenu = $('> .submenu', item),
-                        items = $('> ul', submenu);
-
-                    items.prepend(actions);
-                }, this)
+                $.proxy(
+                    function(index, item) {
+                        var actions = $(
+                                mageTemplate(
+                                    this.options.submenuActionsTemplate, {
+                                        category: $('> a > span', item).text(),
+                                        categoryURL: $('> a', item).attr('href')
+                                    }
+                                )
+                            ),
+                            submenu = $('> .submenu', item),
+                            items = $('> ul', submenu);
+                        items.prepend(actions);
+                    },
+                    this
+                )
             );
         },
 
-        /**
-         * @private
-         */
-        _toggleMobileMode: function () {
+        _toggleMobileMode: function() {
             this._expandMenu();
 
             $(this.options.topLevelSubmenu, $(this.options.topLevel, this.element))
@@ -530,18 +430,17 @@ define([
             this.mobileNav.find('> ul').addClass('nav');
             this._insertExtraItems();
             this._wrapItemsInSections();
-            this.mobileNav.scroll($.proxy(function () {
-                this._fixedBackLink();
-            }, this));
+            this.mobileNav.scroll($.proxy(
+                function() {
+                    this._fixedBackLink();
+                }, this
+            ));
 
             this._renderSubmenuActions();
             this._bindDocumentEvents();
         },
 
-        /**
-         * @private
-         */
-        _toggleDesktopMode: function () {
+        _toggleDesktopMode: function() {
             this.mobileNav && this.mobileNav.remove();
             this.toggleAction.detach();
             $(this.element).insertAfter(this.options.origNavPlaceholder);
@@ -557,14 +456,9 @@ define([
             this._applySubmenuStyles();
         },
 
-        /**
-         * @private
-         */
-        _insertExtraItems: function () {
-            var settings, footerSettings, account;
-
+        _insertExtraItems: function() {
             if ($('.header.panel .switcher').length) {
-                settings = $('.header.panel .switcher')
+                var settings = $('.header.panel .switcher')
                     .clone()
                     .addClass('settings');
 
@@ -572,15 +466,16 @@ define([
             }
 
             if ($('.footer .switcher').length) {
-                footerSettings = $('.footer .switcher')
+                var footerSettings = $('.footer .switcher')
                     .clone()
                     .addClass('settings');
 
                 this.mobileNav.prepend(footerSettings);
             }
 
+
             if ($('.header.panel .header.links li').length) {
-                account = $('.header.panel > .header.links')
+                var account = $('.header.panel > .header.links')
                     .clone()
                     .addClass('account');
 
@@ -588,10 +483,7 @@ define([
             }
         },
 
-        /**
-         * @private
-         */
-        _wrapItemsInSections: function () {
+        _wrapItemsInSections: function() {
             var account = $('> .account', this.mobileNav),
                 settings = $('> .settings', this.mobileNav),
                 nav = $('> .nav', this.mobileNav),
@@ -626,37 +518,31 @@ define([
                 navigationItemWrapper.eq(1).append(settings);
             }
 
-            navigationSectionsWrapper.addClass(
-                'navigation-tabs-' + navigationSectionsWrapper.find('[data-section="title"]').length
-            );
+            navigationSectionsWrapper.addClass("navigation-tabs-" + navigationSectionsWrapper.find('[data-section="title"]').length);
             navigationSectionsWrapper.terms();
         },
 
-        /**
-         * @private
-         */
-        _fixedBackLink: function () {
-            var linksBack = this.mobileNav.find('.submenu .action.back'),
-                linkBack = this.mobileNav.find('.submenu.opened > ul > .action.back').last(),
-                subMenu, navOffset, linkBackHeight;
+        _fixedBackLink: function() {
+            var linksBack = this.mobileNav.find('.submenu .action.back');
+            var linkBack = this.mobileNav.find('.submenu.opened > ul > .action.back').last();
 
             linksBack.removeClass('fixed');
 
             if (linkBack.length) {
-                subMenu = linkBack.parent();
-                navOffset = this.mobileNav.find('.nav').position().top;
-                linkBackHeight = linkBack.height();
+                var subMenu = linkBack.parent(),
+                    navOffset = this.mobileNav.find('.nav').position().top,
+                    linkBackHeight = linkBack.height();
 
                 if (navOffset <= 0) {
                     linkBack.addClass('fixed');
                     subMenu.css({
                         paddingTop: linkBackHeight
-                    });
+                    })
                 } else {
                     linkBack.removeClass('fixed');
                     subMenu.css({
                         paddingTop: 0
-                    });
+                    })
                 }
             }
         }

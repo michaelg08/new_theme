@@ -20,111 +20,111 @@
 
 <div style="clear:both;"></div>
 	
-	<?php if($_product->getData('layer1')): ?>
-		<?php $src = $_product->getData('layer1'); ?>
+	<?php if( trim($_product->getData('layer1')) != '' ): ?>
+		<?php $src = trim($_product->getData('layer1')); ?>
 		<?php if ($src[0] != '/' ): ?>
 		<?php $src = '/' . $src; ?> 
 		<?php endif; ?>
 		<div id="p-desc" style="background-image: url('<?php echo $src ?>');"  class="parallax"></div>
 	<?php endif; ?>
 
-	<?php  if($_product->getData('layer2')): ?>
-		<?php $src = $_product->getData('layer2') ; ?>
+	<?php  if(trim($_product->getData('layer2')) != ''): ?>
+		<?php $src = trim($_product->getData('layer2')) ; ?>
 		<?php if ($src[0] != '/' ): ?>
 		<?php $src = '/' . $src; ?> 
 		<?php endif; ?>			
 		<div id="layer-2" style="background-image: url('<?php echo $src ?>');"  class="parallax">
-			<?php if ($_product->getData('layer2text')): ?>
+			<?php if (trim($_product->getData('layer2text'))): ?>
 				<div class="layer2text">
-					<span><?php echo $_product->getData('layer2text'); ?></span>
+					<span><?php echo trim($_product->getData('layer2text')); ?></span>
 				</div>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 	
-	<?php  if($_product->getData('layer3')): ?>
-		<?php $src = $_product->getData('layer3'); ?>
+	<?php  if(trim($_product->getData('layer3')) != ''): ?>
+		<?php $src = trim($_product->getData('layer3')); ?>
 		<?php if ($src[0] != '/' ): ?>
 		<?php $src = '/' . $src; ?> 
 		<?php endif; ?>				
 		<div id="layer-3" style="background-image: url('<?php echo $src ?>');"  class="parallax">
-			<?php if ( $_product->getData('layer3text')): ?>
+			<?php if (trim($_product->getData('layer3text'))): ?>
 				<div class="layer3text">
-					<span><?php echo $_product->getData('layer3text'); ?></span>
+					<span><?php echo trim($_product->getData('layer3text')); ?></span>
 				</div>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 
-	<?php  if($_product->getData('layer4')): ?>
-		<?php $src = $_product->getData('layer4'); ?>
+	<?php  if(trim($_product->getData('layer4')) != ''): ?>
+		<?php $src = trim($_product->getData('layer4')); ?>
 		<?php if ($src[0] != '/' ): ?>
 		<?php $src = '/' . $src; ?> 
 		<?php endif; ?>				
 		<div id="layer-4" style="background-image: url('<?php echo $src ?>');"  class="parallax">
-			<?php if ( $_product->getData('layer4text')): ?>
+			<?php if ( trim($_product->getData('layer4text'))): ?>
 				<div class="layer4text">
-					<span><?php echo $_product->getData('layer4text'); ?></span>
+					<span><?php echo trim($_product->getData('layer4text')); ?></span>
 				</div>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>
 
-	<?php  if($_product->getData('layer5')): ?>
-		<?php $src = $_product->getData('layer5'); ?>
+	<?php  if(trim($_product->getData('layer5')) != ''): ?>
+		<?php $src = trim($_product->getData('layer5')); ?>
 		<?php if ($src[0] != '/' ): ?>
 		<?php $src = '/' . $src; ?> 
 		<?php endif; ?>				
 		<div id="layer-5" style="background-image: url('<?php echo $src ?>');"  class="parallax">
-			<?php if ( $_product->getData('layer5text')): ?>
+			<?php if ( trim($_product->getData('layer5text')) != ''): ?>
 				<div class="layer5text">
-					<span><?php echo $_product->getData('layer5text'); ?></span>
+					<span><?php echo trim($_product->getData('layer5text')); ?></span>
 				</div>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>	
 	
-	<?php  if($_product->getData('layer6')): ?>
-		<?php $src = $_product->getData('layer6'); ?>
+	<?php  if(trim($_product->getData('layer6')) != ''): ?>
+		<?php $src = trim($_product->getData('layer6')); ?>
 		<?php if ($src[0] != '/' ): ?>
 		<?php $src = '/' . $src; ?> 
 		<?php endif; ?>				
 		<div id="layer-6" style="background-image: url('<?php echo $src ?>');"  class="parallax">
-			<?php if ( $_product->getData('layer6text')): ?>
+			<?php if ( trim($_product->getData('layer6text')) != ''): ?>
 				<div class="layer6text">
-					<span><?php echo $_product->getData('layer6text'); ?></span>
+					<span><?php echo trim($_product->getData('layer6text')); ?></span>
 				</div>
 			<?php endif; ?>
 		</div>
 	<?php endif; ?>	
 	
-	<?php if($_product->getData('youtube_link')): ?> 
+	<?php if( trim($_product->getData('youtube_link')) != '' ): ?> 
 		<div id="youtube_player">
-			<iframe src="<?php echo $_product->getData('youtube_link');?>" frameborder="0" allowfullscreen ></iframe>
+			<iframe src="<?php echo trim($_product->getData('youtube_link'));?>" frameborder="0" allowfullscreen ></iframe>
 		</div>
 	<?php endif; ?>
 
-	<?php if($_product->getData('youtube_link2')): ?> 
+	<?php if(trim($_product->getData('youtube_link2')) != ''): ?> 
 		<div id="youtube_player2">
-			<iframe src="<?php echo $_product->getData('youtube_link2');?>" frameborder="0" allowfullscreen ></iframe>
+			<iframe src="<?php echo trim($_product->getData('youtube_link2'));?>" frameborder="0" allowfullscreen ></iframe>
 		</div>
 	<?php endif; ?>
 
-	<?php if($_product->getData('youtube_link3')): ?> 
+	<?php if(trim($_product->getData('youtube_link3')) != ''): ?> 
 		<div id="youtube_player3">
-			<iframe src="<?php echo $_product->getData('youtube_link3');?>" frameborder="0" allowfullscreen ></iframe>
+			<iframe src="<?php echo trim($_product->getData('youtube_link3'));?>" frameborder="0" allowfullscreen ></iframe>
 		</div>
 	<?php endif; ?>
 	
-	<?php if($_product->getData('youtube_link4')): ?> 
+	<?php if(trim($_product->getData('youtube_link4')) != ''): ?> 
 		<div id="youtube_player4">
-			<iframe src="<?php echo $_product->getData('youtube_link4');?>" frameborder="0" allowfullscreen ></iframe>
+			<iframe src="<?php echo trim($_product->getData('youtube_link4'));?>" frameborder="0" allowfullscreen ></iframe>
 		</div>
 	<?php endif; ?>
 	
-	<?php if($_product->getData('youtube_link5')): ?> 
+	<?php if(trim($_product->getData('youtube_link5')) != ''): ?> 
 		<div id="youtube_player5">
-			<iframe src="<?php echo $_product->getData('youtube_link5');?>" frameborder="0" allowfullscreen ></iframe>
+			<iframe src="<?php echo trim($_product->getData('youtube_link5'));?>" frameborder="0" allowfullscreen ></iframe>
 		</div>
 	<?php endif; ?>
 	

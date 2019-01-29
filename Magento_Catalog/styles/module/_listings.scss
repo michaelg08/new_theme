@@ -1,4 +1,18 @@
 //
+//  Variables
+//  ---------------------------------------------
+
+$product-name-link__color                   : $text__color !default;
+$product-name-link__color__active           : $text__color !default;
+$product-name-link__color__hover            : $text__color !default;
+$product-name-link__color__visited          : $text__color !default;
+
+$product-name-link__text-decoration         : none !default;
+$product-name-link__text-decoration__active : $link__hover__text-decoration !default;
+$product-name-link__text-decoration__hover  : $link__hover__text-decoration !default;
+$product-name-link__text-decoration__visited: $link__hover__text-decoration !default;
+
+//
 //  Product Lists
 //  _____________________________________________
 
@@ -33,7 +47,7 @@
             width: 152px;
 
             .page-products & {
-                width: 240px;
+                width: 275px;
             }
         }
 
@@ -306,7 +320,9 @@
     .page-products {
         .products-grid {
             .product-item {
-                width: 33.3333%;
+        	width: auto;
+        	min-width: 25%;
+                max-width: 33.3333%;
             }
         }
     }
@@ -361,9 +377,9 @@
                 padding: 0;
                 width: 23.233%;
 
-                &:nth-child(4n + 1) {
-                    margin-left: 0;
-                }
+                // &:nth-child(4n + 1) {
+                //    margin-left: 0;
+                //}
             }
         }
     }
